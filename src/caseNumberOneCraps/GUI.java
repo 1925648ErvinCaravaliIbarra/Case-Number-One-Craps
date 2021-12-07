@@ -11,23 +11,24 @@ import java.awt.event.ActionListener;
  *  @version @version v.1.0.0 date:06/12/2021
  */
 public class GUI extends JFrame {
-    public static final String MASSAGE_START="Welcome to Craps \n"
-            +  "please push the button(hit) to  launch   and  you start the game"
-            +  "\n If you launch of exit is 7 or 11, you win with natural"
-            +  "\n If you launch of exit is 2, 3 or 12, you fail with craps"
-            +  "\n If you get any other  value, you establish point"
-            +  "\n The state in points, you can continue launching craps"
-            +  "\n But now you will win if you newly get  the point value"
-            +  "\n without you previously have obtained 7 " ;
+    public static final String MASSAGE_START="Bienvenido a Craps \n"
+            +  "Pulse boton (hit) para tirar y empezar el juego"
+            +  "\n Si tu tiro de salida  es 7 o 11, tu ganas con natural"
+            +  "\n Si tu tiro de salida  es 2, 3 o 12, tu pierdes con craps"
+            +  "\n Si tu sacas cualquier otro valor , tu estableces punto"
+            +  "\n con el estado en los puntos,tu puedes siguir tirando los dados"
+            +  "\n Pero tu ganaras si tu nuevamente consigues el valor punto"
+            +  "\n sin que tu  previamente hayas obtenido 7 " ;
 
     private Header headerProject;
     private JLabel dice1,dice2;
     private JButton hit;
     private JPanel panelDices,panelResults;
     private ImageIcon imageDice;
-    private JTextArea results;
+    private JTextArea outputMassages, diceResults;
     private Escucha escucha;
     private ModelCraps modelCraps;
+    private JSeparator separator;
 
     /**
      * Constructor of GUI class
@@ -56,7 +57,7 @@ public class GUI extends JFrame {
         escucha= new Escucha();
         modelCraps= new ModelCraps();
         //Set up JComponents
-        headerProject = new Header("Table Game Craps", Color.BLACK);
+        headerProject = new Header("Mesa Juego Craps", Color.BLACK);
         this.add(headerProject,BorderLayout.NORTH);
 
         imageDice= new ImageIcon(getClass().getResource("/resource/dado.png"));
@@ -68,23 +69,30 @@ public class GUI extends JFrame {
 
         panelDices= new JPanel();
         panelDices.setPreferredSize(new Dimension(300,180) );
-        panelDices.setBorder(BorderFactory.createTitledBorder("your Craps"));
+        panelDices.setBorder(BorderFactory.createTitledBorder("Tus dados"));
         panelDices.add(dice1);
         panelDices.add(dice2);
         panelDices.add(hit);
         this.add(panelDices,BorderLayout.CENTER);
 
-        results= new JTextArea(7,31);
-        results.setText(MASSAGE_START);
-        results.setBorder(BorderFactory.createTitledBorder("what you have to do"));
-        JScrollPane scroll = new  JScrollPane(results);
-        this.add(scroll,BorderLayout.EAST);
+        outputMassages= new JTextArea(7,31);
+        outputMassages.setText(MASSAGE_START);
+        //outputMassages.setBorder(BorderFactory.createTitledBorder("what you have to do"));
+        JScrollPane scroll = new  JScrollPane(outputMassages);
+        panelResults= new JPanel();
+        panelResults.setBorder(BorderFactory.createTitledBorder("Lo que debes hacer"));
+        panelResults.add(scroll);
+        panelResults.setPreferredSize(new Dimension(370 ,180));
+        this.add(panelResults,BorderLayout.EAST);
 
 
 
 
 
-
+       diceResults= new JTextArea(4,31);
+       separator= new JSeparator();
+       separator.setPreferredSize(new Dimension(320,7));
+       separator.setBackground(Color.BLUE);
 
 
     }
@@ -117,7 +125,17 @@ public class GUI extends JFrame {
 
 
            modelCraps.DetermineStatusOfGame();
-           results.setText(modelCraps.getStateToString());
+           panelResults.removeAll();
+           panelResults.setBorder(BorderFactory.createTitledBorder("Resultados"));
+           panelResults.add(diceResults);
+           panelResults.add(separator);
+           panelResults.add(outputMassages);
+           diceResults.setText(modelCraps.getStateToString()[0]);
+           outputMassages.setRows(4);
+           outputMassages.setText(modelCraps.getStateToString()[1]);
+           revalidate();
+           repaint();
+            //outputMassages.setText(modelCraps.getStateToString());
         }
     }
 }

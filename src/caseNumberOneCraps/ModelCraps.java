@@ -12,7 +12,7 @@ package caseNumberOneCraps;
 public class ModelCraps {
     private Dice dice1,dice2;
     private int  hit,point,state,flag;
-    private String stateToString;
+    private String [] stateToString;
     private int [] faces;
 
     /**
@@ -23,6 +23,7 @@ public class ModelCraps {
         dice1= new Dice();
         dice2= new Dice();
         faces= new int [2]; flag=0;
+        stateToString= new String[2];
     }
 
 
@@ -70,13 +71,16 @@ public class ModelCraps {
         if(hit==point) {
             state=4;
             flag=0;
-        }if(hit==7){
-            state=5;
-            flag=0;
+        }else {
+            if (hit == 7) {
+                state = 5;
+                flag = 0;
 
 
+            }else {
+                state=6;
+            }
         }
-
 
 
     }
@@ -104,20 +108,34 @@ public class ModelCraps {
      * This method Establishes a message with the game state, according to state value attribute.
      * @return message for view class.
      */
-    public String getStateToString() {
+    public String [] getStateToString() {
         switch(state){
-            case 1:stateToString= "you have gotten  a natural number, you have won";
+            case 1:stateToString[0]="Tiro de salida= " + hit ;
+                   stateToString[1]= "Sacaste natural, has ganado !!";
                 break;
-            case 2:stateToString= "you have gotten craps,you have failed";
+
+            case 2:stateToString[0]= "Tiro de salida= " + hit ;
+                   stateToString[1]= "Sacaste craps,has perdido!!";
                 break;
-            case 3:stateToString= "you have established point in" + point + "you have to continue hitting craps"+
-                    " \n but if you get 7 before " + point + " you will fail";
+            case 3:stateToString[0]=  "Tiro de salida= " + hit +"\npunto = " + point;
+                   stateToString[1]= " Has establecido punto en " + point + "sigue tirando los dados"+
+                                     " \npero si  sacas 7 antes que" + point + " tu perderas";
                 break;
-            case 4:stateToString= "if you got again" + point + "you will win";
+            case 4:stateToString[0]=  "Tiro de salida= " + point +"\npunto = " + point
+                                      + "\nel valor del tio es ="+ hit;
+                   stateToString[1]= "si tu sacas de nuevo " + point + "tu ganaras!!";
                 break;
-            case 5:stateToString= "you have gotten 7 before " + point + " you have failed";
+            case 5:stateToString[0]=  "Tiro de salida= " + point +"\npunto = " + point
+                                      + "\nel valor del tio es ="+ hit;
+                   stateToString[1]= "tu has sacado 7 antes que " + point + "  perdiste!!";
+                break;
+            case 6:stateToString[0]=  "Tiro de salida= " + point +"\npunto = " + point
+                                       + "\nel valor del tio es ="+ hit;
+                   stateToString[1]= "\nestas en punto sigue tirando los dados"+
+                                      " \npero si  sacas 7 antes que" + point + " tu perderas";
                 break;
         }return stateToString;
+
     }
 
     public int[] getFaces() {
