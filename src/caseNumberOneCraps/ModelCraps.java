@@ -110,12 +110,12 @@ public class ModelCraps {
                 break;
             case 2:stateToString= "you have gotten craps,you have failed";
                 break;
-            case 3:stateToString= "you have established point in"+point+"you have to continue hitting craps"+
-                    "\n but if you get 7 before "+point+" you will fail";
+            case 3:stateToString= "you have established point in" + point + "you have to continue hitting craps"+
+                    " \n but if you get 7 before " + point + " you will fail";
                 break;
-            case 4:stateToString= "if you got again"+point+"you will win";
+            case 4:stateToString= "if you got again" + point + "you will win";
                 break;
-            case 5:stateToString= "you have gotten 7 before "+point+" you have failed";
+            case 5:stateToString= "you have gotten 7 before " + point + " you have failed";
                 break;
         }return stateToString;
     }

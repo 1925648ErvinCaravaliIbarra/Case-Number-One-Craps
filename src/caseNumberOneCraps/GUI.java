@@ -2,6 +2,8 @@ package caseNumberOneCraps;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * This class is used as view Craps class.
@@ -10,13 +12,13 @@ import java.awt.*;
  */
 public class GUI extends JFrame {
     public static final String MASSAGE_START="Welcome to Craps \n"
-            + "please push the button(hit) to  launch   and  you start the game"
-            + "\n If you launch of exit is 7 or 11, you win with natural"
-            + "\n If you launch of exit is 2,3 or 12, you fail with craps"
-            + "\n If you get any other  value, you establish point"
-            + "\n The state in points, you can continue launching craps"
-            + "\n But now you will win if you newly get  the point value"
-            + "\n without you previously have obtained 7 " ;
+            +  "please push the button(hit) to  launch   and  you start the game"
+            +  "\n If you launch of exit is 7 or 11, you win with natural"
+            +  "\n If you launch of exit is 2, 3 or 12, you fail with craps"
+            +  "\n If you get any other  value, you establish point"
+            +  "\n The state in points, you can continue launching craps"
+            +  "\n But now you will win if you newly get  the point value"
+            +  "\n without you previously have obtained 7 " ;
 
     private Header headerProject;
     private JLabel dice1,dice2;
@@ -24,6 +26,8 @@ public class GUI extends JFrame {
     private JPanel panelDices,panelResults;
     private ImageIcon imageDice;
     private JTextArea results;
+    private Escucha escucha;
+    private ModelCraps modelCraps;
 
     /**
      * Constructor of GUI class
@@ -48,7 +52,9 @@ public class GUI extends JFrame {
      */
     private void initGUI() {
         //Set up JFrame Container's Layout
-        //Create Listener Object and Control Object
+        //Create Listener Object or Control Object
+        escucha= new Escucha();
+        modelCraps= new ModelCraps();
         //Set up JComponents
         headerProject = new Header("Table Game Craps", Color.BLACK);
         this.add(headerProject,BorderLayout.NORTH);
@@ -58,6 +64,7 @@ public class GUI extends JFrame {
         dice2= new JLabel(imageDice);
 
         hit=new JButton("hit");
+        hit.addActionListener(escucha);
 
         panelDices= new JPanel();
         panelDices.setPreferredSize(new Dimension(300,180) );
@@ -96,8 +103,22 @@ public class GUI extends JFrame {
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha {
+    private class Escucha implements ActionListener {
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           modelCraps.CalculateHit();
+           int [ ] faces=modelCraps.getFaces();
+           imageDice= new ImageIcon(getClass().getResource("/resource/" + faces [0] + ".png"));
+           dice1.setIcon(imageDice);
+           imageDice= new ImageIcon(getClass().getResource("/resource/" + faces [1] + ".png"));
+           dice2.setIcon(imageDice);
+
+
+
+           modelCraps.DetermineStatusOfGame();
+           results.setText(modelCraps.getStateToString());
+        }
     }
 }
 
