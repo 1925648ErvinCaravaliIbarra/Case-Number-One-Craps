@@ -111,12 +111,12 @@ public class ModelCraps {
     public String [] getStateToString() {
         switch(state){
             case 1:stateToString[0]="Tiro de salida= " + hit ;
-                   stateToString[1]= "Sacaste natural, has ganado !!";
-                break;
+                   stateToString[1]= "Sacaste natural, has ganado";
+                   stateToString[1]= "Sacaste craps,has perdido!!";
+                break; !!";
+            break;
 
             case 2:stateToString[0]= "Tiro de salida= " + hit ;
-                   stateToString[1]= "Sacaste craps,has perdido!!";
-                break;
             case 3:stateToString[0]=  "Tiro de salida= " + hit +"\npunto = " + point;
                    stateToString[1]= " Has establecido punto en " + point + "sigue tirando los dados"+
                                      " \npero si  sacas 7 antes que" + point + " tu perderas";
