@@ -113,7 +113,6 @@ public class ModelCraps {
             case 1:stateToString[0]="Tiro de salida= " + hit ;
                    stateToString[1]= "Sacaste natural, has ganado";
                    stateToString[1]= "Sacaste craps,has perdido!!";
-                break; !!";
             break;
 
             case 2:stateToString[0]= "Tiro de salida= " + hit ;

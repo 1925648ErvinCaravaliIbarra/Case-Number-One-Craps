@@ -82,6 +82,7 @@ public class GUI extends JFrame {
         panelResults= new JPanel();
         panelResults.setBorder(BorderFactory.createTitledBorder("Lo que debes hacer"));
         panelResults.add(scroll);
+        outputMassages.setEditable(false);
         panelResults.setPreferredSize(new Dimension(370 ,180));
         this.add(panelResults,BorderLayout.EAST);
 
@@ -90,6 +91,7 @@ public class GUI extends JFrame {
 
 
        diceResults= new JTextArea(4,31);
+       diceResults.setEditable(false);
        separator= new JSeparator();
        separator.setPreferredSize(new Dimension(320,7));
        separator.setBackground(Color.BLUE);
